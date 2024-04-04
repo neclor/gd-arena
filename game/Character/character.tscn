@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://217xnnyvjr36"]
+
+[ext_resource type="Script" path="res://game/Character/character.gd" id="1_vi24w"]
+[ext_resource type="Script" path="res://core/stateMachine/state_machine.gd" id="2_uxfd6"]
+[ext_resource type="Script" path="res://game/Character/OnFloor.gd" id="3_h1wev"]
+[ext_resource type="Script" path="res://game/Character/OnAir.gd" id="4_xiq3f"]
+[ext_resource type="Script" path="res://game/Character/CameraComponent.gd" id="5_5n3bs"]
+[ext_resource type="PackedScene" uid="uid://c77tneo2alc5v" path="res://assets/characters/sugar/sugar.glb" id="6_mdwke"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7jwpc"]
+height = 3.0
+
+[node name="Character" type="CharacterBody3D"]
+script = ExtResource("1_vi24w")
+movement_speed = 15
+
+[node name="DirectionComponent" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_uxfd6")
+
+[node name="OnFloor" type="Node" parent="StateMachine"]
+script = ExtResource("3_h1wev")
+
+[node name="Walk" type="Node" parent="StateMachine/OnFloor"]
+
+[node name="Idle" type="Node" parent="StateMachine/OnFloor"]
+
+[node name="OnAir" type="Node" parent="StateMachine"]
+script = ExtResource("4_xiq3f")
+
+[node name="Jump" type="Node" parent="StateMachine/OnAir"]
+
+[node name="Fall" type="Node" parent="StateMachine/OnAir"]
+
+[node name="CameraComponent" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_5n3bs")
+
+[node name="mount" type="Node3D" parent="CameraComponent"]
+
+[node name="Camera3D" type="Camera3D" parent="CameraComponent/mount"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("CapsuleShape3D_7jwpc")
+
+[node name="sugar" parent="." instance=ExtResource("6_mdwke")]
+
+[node name="Skeleton3D" parent="sugar/Armature" index="0"]
+bones/1/rotation = Quaternion(0.0094062, 0.0418175, 0.725954, 0.686407)
+bones/2/rotation = Quaternion(-0.0118186, -0.0241157, -0.0347572, 0.999035)
+bones/3/rotation = Quaternion(-0.0407105, 0.00414303, -0.720225, 0.692533)
+bones/4/rotation = Quaternion(-0.0240878, -0.0229498, 0.0247696, 0.999139)
+bones/5/rotation = Quaternion(-0.707107, 3.70361e-08, 0.707107, 3.70361e-08)
+bones/6/rotation = Quaternion(0.707107, 0, 0.707107, 0)
+
+[editable path="sugar"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqrgi4gamtasr"]
+
+[ext_resource type="Script" path="res://game/userInterface/pause_menu.gd" id="1_281p1"]
+[ext_resource type="PackedScene" uid="uid://bnt3uacv55nwv" path="res://game/userInterface/settings.tscn" id="1_c6qck"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_281p1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -279.5
+offset_top = -125.0
+offset_right = 279.5
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="PanelContainer" parent="HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(135, 135)
+layout_mode = 2
+
+[node name="CenterContainer" type="MarginContainer" parent="HBoxContainer/Buttons"]
+process_mode = 3
+layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Buttons/CenterContainer"]
+process_mode = 3
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="HBoxContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+process_mode = 3
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Продолжить"
+
+[node name="MainMenuButton" type="Button" parent="HBoxContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+process_mode = 3
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Меню
+"
+
+[node name="ExitButton" type="Button" parent="HBoxContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+process_mode = 3
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Выход"
+
+[node name="Settings" parent="HBoxContainer" instance=ExtResource("1_c6qck")]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 2

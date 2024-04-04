@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://pg107sskwqdf"]
+
+[ext_resource type="Script" path="res://game/userInterface/main_menu.gd" id="1_h1lnw"]
+[ext_resource type="Texture2D" uid="uid://db0klwypcdeqb" path="res://assets/main_menu_background.png" id="2_6l7nv"]
+[ext_resource type="PackedScene" uid="uid://bnt3uacv55nwv" path="res://game/userInterface/settings.tscn" id="2_hj6gs"]
+
+[sub_resource type="Environment" id="Environment_3vfca"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_h1lnw")
+started_scene = "res://game/main/main.tscn"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6l7nv")
+expand_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="Control/TextureRect"]
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 648)
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -79.5
+offset_right = 165.0
+offset_bottom = 79.5
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Buttons" type="PanelContainer" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(135, 100)
+layout_mode = 2
+
+[node name="CenterContainer" type="MarginContainer" parent="Control/MarginContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Buttons/CenterContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Control/MarginContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Начать"
+
+[node name="SettingsButton" type="Button" parent="Control/MarginContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Настройки"
+
+[node name="ExitButton" type="Button" parent="Control/MarginContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Выход"
+
+[node name="Settings" parent="Control" instance=ExtResource("2_hj6gs")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_top = -125.0
+offset_bottom = 125.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3vfca")

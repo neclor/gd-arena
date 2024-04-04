@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnt3uacv55nwv"]
+
+[ext_resource type="Script" path="res://game/userInterface/settings.gd" id="1_ghwof"]
+[ext_resource type="AudioStream" uid="uid://8alplouulrdo" path="res://assets/ui/click2.wav" id="2_bejmy"]
+
+[node name="Settings" type="Control"]
+custom_minimum_size = Vector2(420, 250)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -120.0
+offset_right = 210.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ghwof")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(420, 240)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -240.0
+offset_right = 210.0
+grow_horizontal = 2
+grow_vertical = 0
+tab_focus_mode = 0
+
+[node name="Звук" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="SliderAudioStreamPlayer" type="AudioStreamPlayer" parent="TabContainer/Звук"]
+unique_name_in_owner = true
+stream = ExtResource("2_bejmy")
+pitch_scale = 0.8
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Звук"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Звук/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Звук/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Общая громкость"
+
+[node name="MasterHSlider" type="HSlider" parent="TabContainer/Звук/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+min_value = -60.0
+max_value = 10.0
+value = 10.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/Звук"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Звук/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Звук/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Громкость музыки"
+
+[node name="MusicHSlider" type="HSlider" parent="TabContainer/Звук/MarginContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+min_value = -60.0
+max_value = 10.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="TabContainer/Звук"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Звук/MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Звук/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Громкость эффектов"
+
+[node name="SfxHSlider" type="HSlider" parent="TabContainer/Звук/MarginContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+min_value = -60.0
+max_value = 10.0

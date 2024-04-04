@@ -1,0 +1,17 @@
+[gd_resource type="CodeHighlighter" format=3 uid="uid://c8boh5scvnxn0"]
+
+[resource]
+number_color = Color(0.258824, 0.737255, 0.498039, 1)
+symbol_color = Color(0.898039, 0.584314, 0.623529, 1)
+function_color = Color(1, 0.588235, 0.372549, 1)
+member_variable_color = Color(0.254902, 0.521569, 0.847059, 1)
+keyword_colors = {
+"elif": Color(0.72549, 0.568627, 0.94902, 1),
+"else": Color(0.72549, 0.568627, 0.94902, 1),
+"extends": Color(1, 0.407843, 0.4, 1),
+"false": Color(0.352941, 0.72549, 0.898039, 1),
+"func": Color(1, 0.407843, 0.4, 1),
+"if": Color(0.72549, 0.568627, 0.94902, 1),
+"true": Color(0.352941, 0.72549, 0.898039, 1),
+"var": Color(1, 0.407843, 0.4, 1)
+}

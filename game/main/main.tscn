@@ -1,0 +1,219 @@
+[gd_scene load_steps=12 format=3 uid="uid://dtrs4wd24icio"]
+
+[ext_resource type="Script" path="res://addons/Panel3D/3dpanel.gd" id="1_bl2nn"]
+[ext_resource type="PackedScene" uid="uid://217xnnyvjr36" path="res://game/Character/character.tscn" id="1_rbfg5"]
+[ext_resource type="PackedScene" uid="uid://bnt3uacv55nwv" path="res://game/userInterface/settings.tscn" id="2_vydpt"]
+[ext_resource type="PackedScene" uid="uid://bua472vbfr6iu" path="res://core/CodePanel/code_panel.tscn" id="4_p8m10"]
+
+[sub_resource type="GDScript" id="GDScript_2cw2x"]
+script/source = "extends Camera3D
+
+@onready var raycast = $RayCast3D
+
+func _physics_process(delta):
+	var collider = get_world_point(get_viewport().get_mouse_position()).get(\"collider\")
+	if collider and collider is Panel3D:
+		collider.laser_input({
+			'hovering': not Input.is_action_just_pressed(\"left_mouse\"),
+			'pressed': Input.is_action_just_pressed(\"left_mouse\"),
+			'position': raycast.get_collision_point(),
+			\"action\": \"click\" if Input.is_action_just_pressed(\"left_mouse\") else \"hover\"
+		})
+
+func get_world_point(_position: Vector2):
+	var parameters = PhysicsRayQueryParameters3D.create(project_ray_origin(_position), project_ray_normal(_position) * 99999)
+	var result = get_world_3d().direct_space_state.intersect_ray(parameters)
+	return result
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_emvjt"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7wt4s"]
+sky_material = SubResource("ProceduralSkyMaterial_emvjt")
+
+[sub_resource type="Environment" id="Environment_163pp"]
+background_mode = 2
+sky = SubResource("Sky_7wt4s")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_abc50"]
+albedo_color = Color(0.43134, 0.43134, 0.43134, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0umn2"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aic26"]
+content_margin_left = 10.0
+
+[node name="Main" type="Node"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+msaa_3d = 1
+use_taa = true
+size = Vector2i(864, 972)
+
+[node name="Node3D" type="Node3D" parent="SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
+transform = Transform3D(-0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, -0.766044, -3.62914, 2.883, -5.4)
+script = SubResource("GDScript_2cw2x")
+
+[node name="RayCast3D" type="RayCast3D" parent="SubViewport/Node3D/Camera3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D"]
+transform = Transform3D(-0.789755, -0.556604, 0.257834, 0.224144, 0.12941, 0.965926, -0.571005, 0.820637, 0.0225576, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Node3D"]
+environment = SubResource("Environment_163pp")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.07488)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Node3D/CSGCombiner3D"]
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Node3D/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 25.2383, -24.5)
+size = Vector3(50, 1, 49.5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewport/Node3D/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 25.2383, 24.5)
+size = Vector3(50, 1, 49.5)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SubViewport/Node3D/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 24.5, 25.238, 0)
+size = Vector3(50, 1, 49.5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewport/Node3D/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -24.4527, 25.238, 0.0170674)
+size = Vector3(50, 1, 49.5)
+
+[node name="CharacterStand" type="Node3D" parent="SubViewport/Node3D"]
+
+[node name="CharacterStandMesh" type="CSGCombiner3D" parent="SubViewport/Node3D/CharacterStand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+material_overlay = SubResource("StandardMaterial3D_abc50")
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SubViewport/Node3D/CharacterStand/CharacterStandMesh"]
+radius = 1.5
+height = 0.4
+sides = 12
+
+[node name="Character" parent="SubViewport/Node3D/CharacterStand" instance=ExtResource("1_rbfg5")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 0, 3, 0)
+collision_layer = 2
+
+[node name="Panel3D" type="StaticBody3D" parent="SubViewport/Node3D"]
+transform = Transform3D(-2.5774, -9.66214, 4.22346e-07, 0, -4.37114e-07, -10, 9.66214, -2.5774, 1.12662e-07, 7.5812, 2, -2.51135)
+script = ExtResource("1_bl2nn")
+_auto_load_ui = ExtResource("2_vydpt")
+viewport_size = Vector2i(512, 512)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("ViewportTexture_0umn2")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 10
+
+[node name="CodePanel" parent="CanvasLayer/HSplitContainer/MarginContainer" instance=ExtResource("4_p8m10")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+offset_right = 360.0
+offset_bottom = 149.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="NameHBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/NameHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
+text = "Имя"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer/NameHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RoleHBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/RoleHBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
+text = "Роль"
+
+[node name="OptionsButton" type="OptionButton" parent="CanvasLayer/MarginContainer/VBoxContainer/RoleHBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 1
+selected = 0
+popup/item_0/text = "Civil"
+popup/item_0/id = 0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
+text = "Имя"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
+text = "Имя"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3

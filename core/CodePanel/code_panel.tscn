@@ -1,0 +1,195 @@
+[gd_scene load_steps=5 format=3 uid="uid://bua472vbfr6iu"]
+
+[ext_resource type="CodeHighlighter" uid="uid://c8boh5scvnxn0" path="res://core/CodePanel/highlighting.tres" id="1_6q1f1"]
+[ext_resource type="Script" path="res://core/CodePanel/code_panel.gd" id="1_bjd51"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4c3j"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="GDScript" id="GDScript_eauyr"]
+script/source = "extends Window
+@onready var create_script_ok_button = %CreateScriptOkButton
+@onready var create_script_no_button = %CreateScriptNoButton
+@onready var examples_option_button = %ExamplesOptionButton
+@onready var script_name_edit: LineEdit = %ScriptNameLineEdit
+
+func _ready():
+	close_requested.connect(hide)
+	create_script_ok_button.pressed.connect(func():
+		var example = get_parent().examples_folder + examples_option_button.get_item_text(examples_option_button.selected)
+		if not script_name_edit.text.is_empty():
+			get_parent().new_script( script_name_edit.text\\
+					if script_name_edit.text.ends_with(get_parent().scripts_extension)\\
+					else script_name_edit.text + get_parent().scripts_extension)
+			hide())
+		#TODO добавить плохой notification если названия нет
+	create_script_no_button.pressed.connect(hide)
+	
+	# Подгрузка экзамплов в список
+	for example in get_parent().get_examples():
+		examples_option_button.add_item(example)
+"
+
+[node name="CodePanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_bjd51")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+theme_override_constants/separation = 15
+
+[node name="RunScriptsButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "Run"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="NewScriptButton" type="Button" parent="HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "New"
+
+[node name="DeleteScriptButton" type="Button" parent="HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "Delete"
+
+[node name="SaveScriptsButton" type="Button" parent="HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "Save
+"
+
+[node name="AutoSaveCheckButton" type="CheckButton" parent="HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+button_pressed = true
+text = "automatic save"
+
+[node name="Control" type="HSplitContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.9
+
+[node name="ScriptsVBoxContainer" type="ItemList" parent="Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+focus_mode = 0
+
+[node name="CodeEdit" type="CodeEdit" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.8
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4c3j")
+scroll_smooth = true
+scroll_v_scroll_speed = 30.0
+minimap_draw = true
+minimap_width = 100
+syntax_highlighter = ExtResource("1_6q1f1")
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_tabs = true
+symbol_lookup_on_click = true
+gutters_draw_line_numbers = true
+code_completion_enabled = true
+indent_size = 6
+indent_automatic = true
+auto_brace_completion_enabled = true
+
+[node name="NewScriptWindow" type="Window" parent="."]
+unique_name_in_owner = true
+title = "Create"
+initial_position = 2
+size = Vector2i(250, 200)
+visible = false
+script = SubResource("GDScript_eauyr")
+
+[node name="Panel" type="Panel" parent="NewScriptWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewScriptWindow"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 93.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NewScriptWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="NewScriptWindow/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Example"
+
+[node name="ExamplesOptionButton" type="OptionButton" parent="NewScriptWindow/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="ScriptNameLineEdit" type="LineEdit" parent="NewScriptWindow/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Script Name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewScriptWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CreateScriptOkButton" type="Button" parent="NewScriptWindow/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+text = "New"
+
+[node name="CreateScriptNoButton" type="Button" parent="NewScriptWindow/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+text = "Close
+"
