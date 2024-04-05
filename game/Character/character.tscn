@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://217xnnyvjr36"]
+[gd_scene load_steps=10 format=3 uid="uid://217xnnyvjr36"]
 
 [ext_resource type="Script" path="res://game/Character/character.gd" id="1_vi24w"]
 [ext_resource type="Script" path="res://game/Character/LuaComponent.gd" id="2_hchyi"]
@@ -6,12 +6,15 @@
 [ext_resource type="Script" path="res://game/Character/OnFloor.gd" id="3_h1wev"]
 [ext_resource type="Script" path="res://game/Character/OnAir.gd" id="4_xiq3f"]
 [ext_resource type="Script" path="res://game/Character/CameraComponent.gd" id="5_5n3bs"]
-[ext_resource type="PackedScene" uid="uid://c77tneo2alc5v" path="res://assets/characters/sugar/sugar.glb" id="6_mdwke"]
+[ext_resource type="PackedScene" uid="uid://cg6hdc3ycsyl6" path="res://assets/characters/sugar/sugar.glb" id="6_mdwke"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0w7r8"]
+radius = 25.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7jwpc"]
 height = 3.0
 
-[node name="Character" type="CharacterBody3D"]
+[node name="Character" type="CharacterBody3D" groups=["character"]]
 script = ExtResource("1_vi24w")
 movement_speed = 15
 
@@ -37,6 +40,11 @@ script = ExtResource("4_xiq3f")
 
 [node name="Fall" type="Node" parent="StateMachine/OnAir"]
 
+[node name="FOVArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FOVArea"]
+shape = SubResource("SphereShape3D_0w7r8")
+
 [node name="CameraComponent" type="Node3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_5n3bs")
@@ -56,7 +64,6 @@ bones/1/rotation = Quaternion(0.0094062, 0.0418175, 0.725954, 0.686407)
 bones/2/rotation = Quaternion(-0.0118186, -0.0241157, -0.0347572, 0.999035)
 bones/3/rotation = Quaternion(-0.0407105, 0.00414303, -0.720225, 0.692533)
 bones/4/rotation = Quaternion(-0.0240878, -0.0229498, 0.0247696, 0.999139)
-bones/5/rotation = Quaternion(-0.707107, 3.70361e-08, 0.707107, 3.70361e-08)
-bones/6/rotation = Quaternion(0.707107, 0, 0.707107, 0)
+bones/6/rotation = Quaternion(0.707107, 4.17904e-08, 0.707107, -4.17904e-08)
 
 [editable path="sugar"]

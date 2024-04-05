@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dtrs4wd24icio"]
+[gd_scene load_steps=12 format=3 uid="uid://dtrs4wd24icio"]
 
 [ext_resource type="Script" path="res://addons/Panel3D/3dpanel.gd" id="1_bl2nn"]
 [ext_resource type="Script" path="res://game/main/main.gd" id="1_lh38l"]
 [ext_resource type="PackedScene" uid="uid://217xnnyvjr36" path="res://game/Character/character.tscn" id="1_rbfg5"]
 [ext_resource type="PackedScene" uid="uid://bnt3uacv55nwv" path="res://game/userInterface/settings.tscn" id="2_vydpt"]
-[ext_resource type="PackedScene" uid="uid://bua472vbfr6iu" path="res://core/CodePanel/code_panel.tscn" id="4_p8m10"]
+[ext_resource type="PackedScene" uid="uid://h6b45vt42p30" path="res://game/userInterface/game_menu.tscn" id="5_n6133"]
 
 [sub_resource type="GDScript" id="GDScript_2cw2x"]
 script/source = "extends Camera3D
@@ -31,23 +31,20 @@ func get_world_point(_position: Vector2):
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_7wt4s"]
+[sub_resource type="Sky" id="Sky_k8mv6"]
 sky_material = SubResource("ProceduralSkyMaterial_emvjt")
 
 [sub_resource type="Environment" id="Environment_163pp"]
 background_mode = 2
-sky = SubResource("Sky_7wt4s")
+sky = SubResource("Sky_k8mv6")
 tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_abc50"]
 albedo_color = Color(0.43134, 0.43134, 0.43134, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_0umn2"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ki3f5"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aic26"]
-content_margin_left = 10.0
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lh38l")
@@ -118,106 +115,9 @@ script = ExtResource("1_bl2nn")
 _auto_load_ui = ExtResource("2_vydpt")
 viewport_size = Vector2i(512, 512)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GameMenu" parent="." instance=ExtResource("5_n6133")]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TextureRect" parent="GameMenu/HSplitContainer" index="0"]
+texture = SubResource("ViewportTexture_ki3f5")
 
-[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HSplitContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = SubResource("ViewportTexture_0umn2")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HSplitContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_top = 10
-
-[node name="CodePanel" parent="CanvasLayer/HSplitContainer/MarginContainer" instance=ExtResource("4_p8m10")]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-visible = false
-offset_right = 360.0
-offset_bottom = 149.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-
-[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
-custom_minimum_size = Vector2(350, 0)
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="NameHBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/NameHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
-text = "Имя"
-
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer/NameHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="RoleHBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/RoleHBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
-text = "Роль"
-
-[node name="OptionsButton" type="OptionButton" parent="CanvasLayer/MarginContainer/VBoxContainer/RoleHBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-item_count = 1
-selected = 0
-popup/item_0/text = "Civil"
-popup/item_0/id = 0
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
-text = "Имя"
-
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
-text = "Имя"
-
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
+[editable path="GameMenu"]

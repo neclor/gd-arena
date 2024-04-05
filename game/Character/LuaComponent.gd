@@ -2,13 +2,16 @@ extends Node
 
 var lua = LuaAPI.new()
 
+
 func _bind():
 	lua.bind_libraries(["base", "table", "string"])
 	lua.push_variant("message", "Hello lua!")
 	lua.push_variant("move", get_parent().move)
 	lua.push_variant("get_direction", get_parent().get_direction)
 	lua.push_variant("print", _print)
-	
+
+	lua.push_variant("get", get_parent().move)
+
 
 func run(file: String):
 	lua = LuaAPI.new()
@@ -30,12 +33,15 @@ func run(file: String):
 	else:
 		print(ret)
 
+
 func _process(delta):
 	if lua.function_exists("_update"):
 		lua.call_function("_update", [])
 
+
 func error(err: LuaError):
 	print("ERROR %d: %s" % [err.type, err.message])
+
 
 func _print(a: String):
 	print(a)

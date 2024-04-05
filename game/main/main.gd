@@ -1,6 +1,6 @@
 extends Node
 
-@onready var code_panel = %CodePanel
+@onready var code_panel = $GameMenu/%CodePanel
 @onready var character = %Character
 
 

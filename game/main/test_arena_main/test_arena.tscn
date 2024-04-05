@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7hu2blgxi1ju"]
+
+[ext_resource type="PackedScene" uid="uid://b1v3x67uiemi5" path="res://game/arena/arena.tscn" id="1_1tf2j"]
+[ext_resource type="Script" path="res://game/main/test_arena_main/test_arena.gd" id="1_m6lbq"]
+[ext_resource type="PackedScene" uid="uid://h6b45vt42p30" path="res://game/userInterface/game_menu.tscn" id="2_bg05r"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_u8sod"]
+viewport_path = NodePath("SubViewport")
+
+[node name="TestArena" type="Node"]
+script = ExtResource("1_m6lbq")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+msaa_3d = 1
+use_taa = true
+size = Vector2i(864, 972)
+
+[node name="Arena" parent="SubViewport" instance=ExtResource("1_1tf2j")]
+
+[node name="GameMenu" parent="." instance=ExtResource("2_bg05r")]
+
+[node name="TextureRect" parent="GameMenu/HSplitContainer" index="0"]
+texture = SubResource("ViewportTexture_u8sod")
+
+[editable path="GameMenu"]

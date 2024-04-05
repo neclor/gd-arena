@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://pg107sskwqdf"]
 
 [ext_resource type="Script" path="res://game/userInterface/main_menu.gd" id="1_h1lnw"]
-[ext_resource type="Texture2D" uid="uid://db0klwypcdeqb" path="res://assets/main_menu_background.png" id="2_6l7nv"]
+[ext_resource type="Texture2D" uid="uid://bgbmov23vc136" path="res://assets/main_menu_background.png" id="2_6l7nv"]
 [ext_resource type="PackedScene" uid="uid://bnt3uacv55nwv" path="res://game/userInterface/settings.tscn" id="2_hj6gs"]
 
 [sub_resource type="Environment" id="Environment_3vfca"]
@@ -88,6 +88,11 @@ layout_mode = 2
 size_flags_horizontal = 0
 focus_mode = 0
 text = "Выход"
+
+[node name="ArenaButton" type="Button" parent="Control/MarginContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Арена"
 
 [node name="Settings" parent="Control" instance=ExtResource("2_hj6gs")]
 unique_name_in_owner = true

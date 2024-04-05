@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1v3x67uiemi5"]
+
+[ext_resource type="Script" path="res://game/arena/arena.gd" id="1_1xmcr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g2ddd"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7wt4s"]
+sky_material = SubResource("ProceduralSkyMaterial_g2ddd")
+
+[sub_resource type="Environment" id="Environment_y7caj"]
+background_mode = 2
+sky = SubResource("Sky_7wt4s")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Arena" type="Node3D"]
+script = ExtResource("1_1xmcr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y7caj")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
+size = Vector3(100, 1, 100)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 50, 25, 0)
+size = Vector3(100, 1, 50)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 50, 25, 100)
+size = Vector3(100, 1, 50)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 100, 25, 50)
+size = Vector3(100, 1, 50)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 25, 50)
+size = Vector3(100, 1, 50)
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 3, 50)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 50, 100, 50)
+current = true
+
+[node name="CharactersContainer" type="Node3D" parent="."]

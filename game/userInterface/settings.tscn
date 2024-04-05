@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnt3uacv55nwv"]
 
 [ext_resource type="Script" path="res://game/userInterface/settings.gd" id="1_ghwof"]
-[ext_resource type="AudioStream" uid="uid://8alplouulrdo" path="res://assets/ui/click2.wav" id="2_bejmy"]
+[ext_resource type="AudioStream" uid="uid://1hc0ctdxtnod" path="res://assets/ui/click2.wav" id="2_bejmy"]
 
 [node name="Settings" type="Control"]
 custom_minimum_size = Vector2(420, 250)
@@ -40,6 +40,7 @@ offset_top = -240.0
 offset_right = 210.0
 grow_horizontal = 2
 grow_vertical = 0
+current_tab = 0
 tab_focus_mode = 0
 
 [node name="Звук" type="VBoxContainer" parent="TabContainer"]
