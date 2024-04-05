@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dtrs4wd24icio"]
+[gd_scene load_steps=13 format=3 uid="uid://dtrs4wd24icio"]
 
 [ext_resource type="Script" path="res://addons/Panel3D/3dpanel.gd" id="1_bl2nn"]
+[ext_resource type="Script" path="res://game/main/main.gd" id="1_lh38l"]
 [ext_resource type="PackedScene" uid="uid://217xnnyvjr36" path="res://game/Character/character.tscn" id="1_rbfg5"]
 [ext_resource type="PackedScene" uid="uid://bnt3uacv55nwv" path="res://game/userInterface/settings.tscn" id="2_vydpt"]
 [ext_resource type="PackedScene" uid="uid://bua472vbfr6iu" path="res://core/CodePanel/code_panel.tscn" id="4_p8m10"]
@@ -49,6 +50,7 @@ viewport_path = NodePath("SubViewport")
 content_margin_left = 10.0
 
 [node name="Main" type="Node"]
+script = ExtResource("1_lh38l")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 msaa_3d = 1
@@ -106,6 +108,7 @@ height = 0.4
 sides = 12
 
 [node name="Character" parent="SubViewport/Node3D/CharacterStand" instance=ExtResource("1_rbfg5")]
+unique_name_in_owner = true
 transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 0, 3, 0)
 collision_layer = 2
 
@@ -145,6 +148,7 @@ size_flags_horizontal = 3
 theme_override_constants/margin_top = 10
 
 [node name="CodePanel" parent="CanvasLayer/HSplitContainer/MarginContainer" instance=ExtResource("4_p8m10")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]

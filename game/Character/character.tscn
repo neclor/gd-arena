@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://217xnnyvjr36"]
+[gd_scene load_steps=9 format=3 uid="uid://217xnnyvjr36"]
 
 [ext_resource type="Script" path="res://game/Character/character.gd" id="1_vi24w"]
+[ext_resource type="Script" path="res://game/Character/LuaComponent.gd" id="2_hchyi"]
 [ext_resource type="Script" path="res://core/stateMachine/state_machine.gd" id="2_uxfd6"]
 [ext_resource type="Script" path="res://game/Character/OnFloor.gd" id="3_h1wev"]
 [ext_resource type="Script" path="res://game/Character/OnAir.gd" id="4_xiq3f"]
@@ -13,6 +14,9 @@ height = 3.0
 [node name="Character" type="CharacterBody3D"]
 script = ExtResource("1_vi24w")
 movement_speed = 15
+
+[node name="LuaComponent" type="Node" parent="."]
+script = ExtResource("2_hchyi")
 
 [node name="DirectionComponent" type="Node" parent="."]
 

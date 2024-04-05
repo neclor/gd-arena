@@ -6,8 +6,14 @@ extends CharacterBody3D
 
 @export var air_movement_scale: int = 1
 @onready var camera_component = %CameraComponent
-
 @onready var animation_player = $sugar/AnimationPlayer
+@onready var lua_component = $LuaComponent
+
+var behaviour_script: String:
+	set(value):
+		behaviour_script = value
+		if not is_node_ready(): await ready
+		lua_component.run(behaviour_script)
 
 @onready var model = $sugar
 
@@ -26,3 +32,7 @@ func _process(delta):
 
 func move(direction: Vector3):
 	self.direction = direction
+
+func get_direction():
+	var input = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	return Vector3(input.x, 0, input.y)

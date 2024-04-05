@@ -1,0 +1,10 @@
+
+function _ready()
+
+end
+
+
+
+function _update()
+	move(Vector3(1, 0, 1))
+end

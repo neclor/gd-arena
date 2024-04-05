@@ -6,6 +6,7 @@ var examples_folder: String = "res://core/CodePanel/examples/"
 
 @export var scripts_extension: String = ".scr"
 
+@onready var run_scripts_button = %RunScriptsButton
 @onready var new_script_window = %NewScriptWindow
 @onready var new_script_button = %NewScriptButton
 @onready var save_scripts_button = %SaveScriptsButton
@@ -18,6 +19,7 @@ var current_script: FileAccess
 
 signal new_script_created(path)
 signal edit_script_changed()
+signal run_pressed(script)
 
 func _ready():
 	if not DirAccess.dir_exists_absolute(scripts_folder_dir):
@@ -47,6 +49,11 @@ func _ready():
 		else:
 			code_edit.editable = false
 			code_edit.text = ""
+	)
+	
+	run_scripts_button.pressed.connect( func():
+		if current_script:
+			run_pressed.emit(current_script.get_path_absolute())
 	)
 	
 	_update_scripts()
