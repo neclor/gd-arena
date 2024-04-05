@@ -25,5 +25,11 @@ mono_crash.*.json
 *~
 
 #
+*.exe
+*.dll
+*.dylib
+*.so
+
+#
 keystore/
 android/
