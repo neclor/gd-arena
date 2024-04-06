@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://h6b45vt42p30"]
+[gd_scene load_steps=4 format=3 uid="uid://643fxvfw7bqw"]
 
 [ext_resource type="PackedScene" uid="uid://bua472vbfr6iu" path="res://core/CodePanel/code_panel.tscn" id="1_q2dmq"]
 
@@ -11,7 +11,6 @@ content_margin_left = 10.0
 [node name="GameMenu" type="CanvasLayer"]
 
 [node name="Panel" type="Panel" parent="."]
-auto_translate_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,7 +18,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
-auto_translate_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,7 +26,6 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HSplitContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 texture = SubResource("ViewportTexture_0umn2")
@@ -36,18 +33,15 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="HSplitContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_top = 10
 
 [node name="CodePanel" parent="HSplitContainer/MarginContainer" instance=ExtResource("1_q2dmq")]
 unique_name_in_owner = true
-auto_translate_mode = 1
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-auto_translate_mode = 1
 visible = false
 offset_right = 360.0
 offset_bottom = 149.0
@@ -55,79 +49,64 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-auto_translate_mode = 1
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="NameHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/NameHBoxContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
 text = "Имя"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/NameHBoxContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RoleHBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/RoleHBoxContainer2"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
 text = "Роль"
 
 [node name="OptionsButton" type="OptionButton" parent="MarginContainer/VBoxContainer/RoleHBoxContainer2"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
-selected = 0
 item_count = 1
 popup/item_0/text = "Civil"
 popup/item_0/id = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
 text = "Имя"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-auto_translate_mode = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_aic26")
 text = "Имя"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
-auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3

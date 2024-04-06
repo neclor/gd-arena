@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b1v3x67uiemi5" path="res://game/arena/arena.tscn" id="1_1tf2j"]
 [ext_resource type="Script" path="res://game/main/test_arena_main/test_arena.gd" id="1_m6lbq"]
-[ext_resource type="PackedScene" uid="uid://h6b45vt42p30" path="res://game/userInterface/game_menu.tscn" id="2_bg05r"]
+[ext_resource type="PackedScene" uid="uid://643fxvfw7bqw" path="res://game/userInterface/game_menu.tscn" id="2_bg05r"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_u8sod"]
 viewport_path = NodePath("SubViewport")

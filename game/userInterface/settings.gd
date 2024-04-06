@@ -14,7 +14,7 @@ func _ready():
 	master_slider.value_changed.connect(on_audio_slider.bind(0))
 	music_slider.value_changed.connect(on_audio_slider.bind(2))
 	sfx_slider.value_changed.connect(on_audio_slider.bind(1))
-	#master_slider.value_changed.emit(master_slider.value)
-	#music_slider.value_changed.emit(music_slider.value)
-	#sfx_slider.value_changed.emit(sfx_slider.value)
+	master_slider.value_changed.emit(AudioServer.get_bus_volume_db(0))
+	sfx_slider.value_changed.emit(AudioServer.get_bus_volume_db(1))
+	music_slider.value_changed.emit(AudioServer.get_bus_volume_db(2))
 
